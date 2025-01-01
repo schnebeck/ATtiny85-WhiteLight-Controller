@@ -1,18 +1,21 @@
+Testing original Lidl IR remote control
+=======================================
+
 trying NEC format:
 
 usercode 00 ff
 
-on/off Datacode 45 ba
-Lamp Datacode 47 b8
-warm Datacode 40 bf
-cold Datacode 19 e6
-low Datacode 07 f8
-high Datacode 09 f6
-10% Datacode 0c f3
-50% Datacode 18 e7
-100% Datacode 5e a1
-Night Datacode 08 f7
-D1 Datacode 1c e3
-30min Datacode 5a a5
+on/off: datacode 45 ba
+Lamp: datacode 47 b8
+warm: datacode 40 bf
+cold: datacode 19 e6
+low: datacode 07 f8
+high: datacode 09 f6
+10%: datacode 0c f3
+50%: datacode 18 e7
+100%: datacode 5e a1
+Night: datacode 08 f7
+D1: datacode 1c e3
+30min: datacode 5a a5
 
 irmp lib generates only the upper 8 bits!
