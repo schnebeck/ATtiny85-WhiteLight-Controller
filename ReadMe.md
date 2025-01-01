@@ -1,16 +1,13 @@
 # LED Lighting Controller
 
-⚠️ **WARNING: MAINS POWER SAFETY** ⚠️
-
-Working with mains power is extremely dangerous and can result in serious injury, electric shock, or death. 
-
-- **Disconnect all connections to mains power** before starting any work on this project. Verify with a voltage tester before proceeding.
-- This PCB does **not** provide galvanic isolation. Be aware that the low-voltage components connected to the circuit may be at mains potential.
-- Only proceed if you have adequate knowledge of electrical safety and experience working with high-voltage systems.
-- Consider consulting a qualified electrician if in doubt.
-
-**Proceed at your own risk.**
-
+| ⚠️ **WARNING: MAINS POWER SAFETY** ⚠️ |
+|---------------------------------------|
+| Working with mains power is extremely dangerous and can result in serious injury, electric shock, or death. |
+| - **Disconnect all connections to mains power** before starting any work on this project. |
+| - This PCB does **not** provide galvanic isolation. Be aware that the low-voltage components connected to the circuit may be at mains potential. |
+| - Only proceed if you have adequate knowledge of electrical safety and experience working with high-voltage systems. |
+| - Consider consulting a qualified electrician if in doubt. |
+| **Proceed at your own risk.** |
 
 This project aims to enhance the functionality of a lighting unit originally produced by Lidl™'s LIVARNO™ brand (Type 0452602). The original unit uses an unbranded 8-pin microcontroller for control, which does not retain its settings when mains power is switched off. This project replaces the original processor with an ATtiny™85 microcontroller to add persistent storage of settings and maintain compatibility with the original IR remote control.
 ![unmodified controller on pcb](doc/original.jpg)
