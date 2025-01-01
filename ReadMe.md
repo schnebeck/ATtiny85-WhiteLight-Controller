@@ -17,14 +17,12 @@ This project aims to enhance the functionality of a lighting unit originally pro
 
 ## Hardware Requirements
 
-- **Microcontroller**: ATtiny85 running at 8 MHz.
+- **Microcontroller**: ATtiny85 running at 8 MHz with built-in EEPROM for setting storage.
 - **LED Channels**:
   - Cold white LED string connected to PB1 (PWM output).
   - Warm white LED string connected to PB4 (PWM output).
 - **IR Receiver**:
   - NEC-compatible IR receiver connected to PB2.
-- **EEPROM Storage**:
-  - Persistent storage for settings.
 
 ## Pin Configuration
 
