@@ -1,4 +1,4 @@
-# LED Lighting Controller
+# LED Lighting Controller Modification
 
 > ⚠️ WARNING - MAINS POWER SAFETY ⚠️
 > ---------------------------------------
