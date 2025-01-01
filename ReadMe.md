@@ -1,10 +1,10 @@
 # LED Lighting Controller
 
-This project aims to enhance the functionality of a lighting unit originally produced by Lidl's LIVARNO brand (Type 0452602). The original unit uses an unbranded 8-pin microcontroller for control, which does not retain its settings when mains power is switched off. This project replaces the original processor with an ATtiny85 microcontroller to add persistent storage of settings and maintain compatibility with the original IR remote control.
+This project aims to enhance the functionality of a lighting unit originally produced by Lidl™'s LIVARNO™ brand (Type 0452602). The original unit uses an unbranded 8-pin microcontroller for control, which does not retain its settings when mains power is switched off. This project replaces the original processor with an ATtiny™85 microcontroller to add persistent storage of settings and maintain compatibility with the original IR remote control.
 
 ## Features
 
-- **IR Remote Control**: Full support for controlling the lighting unit via an NEC protocol-compatible IR remote control.
+- **IR Remote Control**: Full support for controlling the lighting unit via an NEC™ protocol-compatible IR remote control.
 - **Independent Control**: Adjust cold white and warm white LED strings independently.
 - **Brightness and Color Adjustment**:
   - Smooth fading between color temperatures.
@@ -82,7 +82,7 @@ This project aims to enhance the functionality of a lighting unit originally pro
 
 ## Acknowledgments
 
-This project enhances the LIVARNO LED lighting unit by adding modern functionality while maintaining compatibility with its original design. The ATtiny85 microcontroller provides an efficient and reliable solution for embedded systems with limited resources.
+This project enhances the LIVARNO™ LED lighting unit by adding modern functionality while maintaining compatibility with its original design. The ATtiny™85 microcontroller provides an efficient and reliable solution for embedded systems with limited resources.
 
 ## License
 
