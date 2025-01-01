@@ -1,0 +1,16 @@
+Vermutlich NEC-Format
+
+usercode 00ff
+
+on/off Datacode 45ba
+Lamp Datacode 47b8
+warm Datacode 40bf
+cold Datacode 19e6
+low Datacode 07f8
+high Datacode 09f6
+10% Datacode 0cf3
+50% Datacode 18e7
+100% Datacode 5ea1
+Night Datacode 08f7
+D1 Datacode 1ce3
+30min Datacode 5aa5
