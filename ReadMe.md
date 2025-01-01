@@ -1,6 +1,6 @@
 # LED Lighting Controller
 
-[!WARNING]
+> [!WARNING]
 > ⚠️ **MAINS POWER SAFETY** ⚠️
 > ---------------------------------------
 > Working with mains power is extremely dangerous and can result in serious injury, electric shock, or death.
