@@ -7,6 +7,7 @@
 > - This PCB does **not** provide galvanic isolation. Be aware that the low-voltage components connected to the circuit may be at mains potential.
 > - Only proceed if you have adequate knowledge of electrical safety and experience working with mains-voltage systems.
 > - Consider consulting a qualified electrician if in doubt.
+>   
 > **Proceed at your own risk.**
 
 This project aims to enhance the functionality of a lighting unit originally produced by Lidl™'s LIVARNO™ brand (Type 0452602). The original unit uses an unbranded 8-pin microcontroller for control, which does not retain its settings when mains power is switched off. This project replaces the original processor with an ATtiny™85 microcontroller to add persistent storage of settings and maintain compatibility with the original IR remote control.
@@ -58,7 +59,7 @@ This project aims to enhance the functionality of a lighting unit originally pro
 ## Development Notes
 
 - **Microcontroller Programming**:
-  - The ATtiny85 is programmed using an ISP programmer, bypassing the default bootloader.
+  - The ATtiny85 is programmed using an ISP programmer.
 - **Development Board**:
   - The project was developed using a Digispark ATtiny85 board for initial testing.
 - **PWM Configuration**:
