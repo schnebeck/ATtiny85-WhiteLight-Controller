@@ -37,11 +37,16 @@ This project aims to enhance the functionality of a lighting unit originally pro
 
 ## Pin Configuration
 
-| Pin   | Function                 |
-|-------|--------------------------|
-| PB1   | Cold white LED PWM       |
-| PB2   | IR receiver input        |
-| PB4   | Warm white LED PWM       |
+| Pin | Function | Usage               |
+|-----|----------|---------------------|
+|  1  |   PB5    |                     |
+|  2  |   PB3    |                     |
+|  3  |   OC1B   | Warm white LED PWM  |
+|  4  |   GND    | 0V                  |
+|  5  |   PB0    |                     |
+|  6  |   OC1A   | Cold white LED PWM  |
+|  7  |   PB2    | IR receiver input   |
+|  8  |   Vcc    | +5V                 |
 
 ## Key Functionality
 
@@ -87,7 +92,8 @@ This project aims to enhance the functionality of a lighting unit originally pro
 
 2. **Hardware Setup**:
    - Replace the original microcontroller with the ATtiny85.
-   - Connect the LEDs and IR receiver to the appropriate pins as described above.
+   - It is recommended to mount the ATtiny85 upside down. This orientation aligns Pin 3 and Pin 4 with the existing PCB traces for better compatibility.
+   - Connect Vcc, the LED strings and IR receiver input to the appropriate pins as described in the **Pin Configuration** section.
 
 3. **Testing**:
    - Use the original IR remote control to verify functionality.
