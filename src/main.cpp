@@ -35,9 +35,23 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 #include <irmp.hpp>
+#include <avr/io.h>
+#include <avr/wdt.h>
 
+const unsigned long RESET_TIMEOUT_S = 2;            // brownout detection time horizont
+const unsigned long LIGHTOFF_TIMEOUT_S = 1800;      // 30min lights-off time-out
 const int EEPROM_COLD_WHITE_ADDR = 0;
 const int EEPROM_WARM_WHITE_ADDR = 1;
+const uint8_t MAGIC_VALUE = 0XAB; // magic value in SRAM  
+
+volatile unsigned long timeCounter = 0;
+volatile uint8_t resetMarker __attribute__((section(".noinit"))); // SRAM reset marker
+unsigned long restartDetectTimer = 0; 
+unsigned long lightOffTimer = 0; 
+uint8_t current_preset = 0;
+bool is_on = true;
+bool is_night = false;
+bool timer_start = false;
 
 IRMP_DATA irmp_data;
 
@@ -57,14 +71,11 @@ const uint8_t presets[5][2] = {
     {1, 255}    // Preset 4
 };
 
-uint8_t current_preset = 0;
-bool is_on = true;
-bool is_night = false;
 
 // Declaration of functions
 void mdelay(uint16_t time);
 struct PWMdata setBrightness(uint8_t brightness,  struct PWMdata white);
-void fadePWM(struct PWMdata start, struct PWMdata stop, int16_t durationMs = 500);
+void fadePWM(struct PWMdata start, struct PWMdata stop, int16_t durationMs = 800);
 void setupPWM();
 void setPWM(struct PWMdata white);
 void processNECCommand(uint16_t command);
@@ -257,6 +268,18 @@ void processNECCommand(uint16_t command) {
             mdelay(200);
             setPWM(whiteColor);
             break;
+
+        case 90: // 30 min timer
+            timer_start = !timer_start;
+            lightOffTimer = timeCounter;
+            setPWM((PWMdata){0,0});
+            if (timer_start) {
+                mdelay(200);
+            } else {
+                mdelay(800);
+            }
+            setPWM(whiteColor);
+            break;
     }
 }
 
@@ -277,6 +300,20 @@ uint8_t getBrightness(struct PWMdata color) {
 
 // Startup function
 void setup() {
+
+    if (MCUSR & _BV(WDRF)){            // If a reset was caused by the Watchdog Timer...
+        MCUSR &= ~_BV(WDRF);                 // Clear the WDT reset flag
+        WDTCR |= (_BV(WDCE) | _BV(WDE));   // Enable the WD Change Bit
+        WDTCR = 0x00;                      // Disable the WDT
+    }
+    cli(); // with global interrupts disabled,
+    // Set up Watch Dog Timer for Inactivity
+    WDTCR |= (_BV(WDCE) | _BV(WDE));   // Enable the WD Change Bit
+    WDTCR =   _BV(WDIE) |              // Enable WDT Interrupt
+    _BV(WDP2) | _BV(WDP1);   // Set Timeout to ~1 seconds (or something)
+    sei(); // now re-enable global interrupts
+
+    restartDetectTimer = 0;
     delay(10);
     pinMode(PB1, OUTPUT);
     pinMode(PB4, OUTPUT);
@@ -284,15 +321,35 @@ void setup() {
     digitalWrite(PB4, LOW);
     irmp_init();
     setupPWM();
-
+ 
     // load saved settings from EEPROM
     whiteColor = readColor();
     brightness = getBrightness(whiteColor);
-    fadePWM((PWMdata){0,0}, whiteColor);
+
+    if (resetMarker == MAGIC_VALUE) { // check for double tap
+        resetMarker = 0;
+        fadePWM((PWMdata){0,0}, setBrightness(5, (PWMdata){presets[4][0], presets[4][1]})); // set night light
+    } else {
+        resetMarker = MAGIC_VALUE;
+        fadePWM((PWMdata){0,0}, whiteColor); // set EEPROM color
+    }
 }
+
 
 // Main loop
 void loop() {
+    if (timeCounter > RESET_TIMEOUT_S) {
+        resetMarker = 0;
+    }
+    if (timer_start) {
+        if (timeCounter - lightOffTimer > LIGHTOFF_TIMEOUT_S) {
+            timer_start = false;
+            fadePWM(whiteColor, (PWMdata){0,0}); // set no color
+            is_on=false;
+        }    
+    } else {
+        lightOffTimer=timeCounter;
+    }
     if (irmp_get_data(&irmp_data)) {
         if (irmp_data.protocol != IRMP_ONKYO_PROTOCOL) {
             if (irmp_data.protocol == IRMP_NEC_PROTOCOL && irmp_data.address == 0x00) { 
@@ -309,3 +366,9 @@ void loop() {
         }
     }
 }
+
+// ISR für den Watchdog-Timer
+ISR(WDT_vect) {
+    timeCounter++; // Sekunden-Zähler erhöhen
+}
+
