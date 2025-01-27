@@ -25,6 +25,7 @@ This project aims to enhance the functionality of a lighting unit originally pro
   - Reload saved settings after power cycling.
 - **Night Mode**: Activate a low-intensity nightlight setting.
 - **Preset Support**: Quickly switch between predefined color and brightness presets.
+- **Timer**: Enable oder disable a 30min lights-off timer.
 
 ## Hardware Requirements
 
@@ -32,6 +33,8 @@ This project aims to enhance the functionality of a lighting unit originally pro
 - **LED Channels**:
   - Cold white LED string connected to PB1 (PWM output).
   - Warm white LED string connected to PB4 (PWM output).
+- **Timer**:
+  - using WDT interrupt for 30 min timer  
 - **IR Receiver**:
   - NEC-compatible IR receiver connected to PB2.
 
@@ -57,6 +60,7 @@ This project aims to enhance the functionality of a lighting unit originally pro
   - Activate nightlight mode.
   - Store and recall settings.
   - Quickly set brightness levels (10%, 50%, 100%).
+  - Activate/deactivate 30 min lights-off timer
 
 - **Fading**:
   - Smooth transitions between brightness levels and color temperatures.
@@ -69,6 +73,10 @@ This project aims to enhance the functionality of a lighting unit originally pro
   - The project was developed using a Digispark ATtiny85 board for initial testing.
 - **PWM Configuration**:
   - Timer1 is used for generating PWM signals with 8-bit resolution.
+- **IR remote control**
+  - Timer0 is used for analyzing NEC remote control codes.
+- **WDT interrupt**
+  - WDT generates aprox. every second an interrupt used for the timer funcion.  
 
 ## How It Works
 
@@ -88,7 +96,7 @@ This project aims to enhance the functionality of a lighting unit originally pro
 
 
 1. **Programming**:
-   - Flash the provided program onto the ATtiny85 using an ISP programmer.
+   - Flash the provided program onto the ATtiny85 using an ISP programmer and avrdude.
 
 2. **Hardware Setup**:
    - Replace the original microcontroller with the ATtiny85.
@@ -102,7 +110,7 @@ This project aims to enhance the functionality of a lighting unit originally pro
 
 ## Acknowledgments
 
-This project enhances the LIVARNO™ LED lighting unit by adding modern functionality while maintaining compatibility with its original design. The ATtiny™85 microcontroller provides an efficient and reliable solution for embedded systems with limited resources.
+This project enhances the LIVARNO™ LED lighting unit by adding modern functionality while maintaining compatibility with its original design. The ATtiny™85 microcontroller provides an efficient and reliable solution for embedded systems with limited resources. This ReadMe.md-file creation was assisted by ChatGPT.
 
 ## License
 
